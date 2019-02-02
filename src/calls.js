@@ -39,7 +39,8 @@ let Calls = {
   },
 
   async createShoppingItem(dtoIn) {
-    let commandUri = this.getUri("shoppingItem");
+    let commandUri = this.getUri("new");
+    console.log("createShoppingItem + " + dtoIn)
     return await Calls.call("post", commandUri, dtoIn);
   },
 

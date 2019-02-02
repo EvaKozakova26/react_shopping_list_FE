@@ -56,7 +56,6 @@ export default class TodoList extends React.Component {
         this.setState({
             value: ''
         });
-
     }
 
     async updateItem(item, index, newItem) {
