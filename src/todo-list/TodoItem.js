@@ -44,7 +44,7 @@ export default class TodoItem extends React.Component {
         return (
             <div>
                 <link href="//cdn.muicss.com/mui-0.9.41/css/mui.min.css" rel="stylesheet" type="text/css" media="screen" />
-                {this.props.item.content}{" " + this.props.item.count + "x"}
+                {this.props.item.name}{" " + this.props.item.count + "x"}
                 <Button onClick={this.removeItem}>Remove Item</Button>
                 <input
                     name="isFinished"

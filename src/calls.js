@@ -23,12 +23,13 @@ let Calls = {
 
   getUri: function(useCase) {
     return (
-        "http://localhost:5000/" + useCase
+        "http://localhost:8080/" + useCase
     );
   },
 
   async getShoppingList(dtoIn) {
-    let commandUri = this.getUri("shoppingList");
+    let commandUri = this.getUri("items");
+    console.log(dtoIn);
     return await Calls.call("get", commandUri, dtoIn);
   },
 

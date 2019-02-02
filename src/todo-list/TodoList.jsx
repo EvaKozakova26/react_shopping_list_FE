@@ -44,7 +44,7 @@ export default class TodoList extends React.Component {
         let items = [...this.state.items];
 
         let serverItem = await Calls.createShoppingItem({
-            content: this.state.value,
+            name: this.state.value,
             state: "NEW",
             count: this.state.count,
             createdAt: new Date().toUTCString()
