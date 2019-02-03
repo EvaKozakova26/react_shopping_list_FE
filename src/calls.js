@@ -34,7 +34,7 @@ let Calls = {
   },
 
   async deleteShoppingItem(dtoIn) {
-    let commandUri = this.getUri("shoppingItem");
+    let commandUri = this.getUri("delete");
     return await Calls.call("delete", commandUri, dtoIn);
   },
 
@@ -45,7 +45,7 @@ let Calls = {
   },
 
   async updateShoppingItem(dtoIn) {
-    let commandUri = this.getUri("shoppingItem");
+    let commandUri = this.getUri("check");
     return await Calls.call("put", commandUri, dtoIn);
   }
 };
