@@ -60,6 +60,11 @@ let Calls = {
         let commandUri = this.getUri("register");
         return await Calls.call("post", commandUri, dtoIn);
 
+    },
+    async logoutUser() {
+        let commandUri = this.getUri("logoutt");
+        return await Calls.call("post", commandUri);
+
     }
 };
 

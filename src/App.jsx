@@ -6,6 +6,7 @@ import Panel from 'muicss/lib/react/panel';
 import Button from 'muicss/lib/react/button';
 import Login from "./auth/Login";
 import Register from "./auth/Register";
+import Calls from "./calls";
 
 
 class App extends Component {
@@ -19,6 +20,7 @@ class App extends Component {
 
         this.onLoginClicked = this.onLoginClicked.bind(this);
         this.onRegisterClicked = this.onRegisterClicked.bind(this);
+        this.onLogoutClicked = this.onLogoutClicked.bind(this);
 
     }
 
@@ -38,6 +40,11 @@ class App extends Component {
         this.loginForm = <Register show = {this.viewLoginForm}/>;
     }
 
+    async onLogoutClicked(event) {
+       await Calls.logoutUser();
+       window.location.reload();
+    }
+
     render() {
     return (
         <div className="App">
@@ -48,6 +55,7 @@ class App extends Component {
 
               <Button onClick={this.onLoginClicked}>Login</Button>
               <Button onClick={this.onRegisterClicked}>Register</Button>
+              <Button onClick={this.onLogoutClicked}>Logout</Button>
 
               <div className={"wrapperLoginForm"}>
                   {(this.state.viewLoginForm) ? this.loginForm : ''}
