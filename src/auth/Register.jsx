@@ -9,10 +9,12 @@ import Calls from "../calls";
 export default class Login extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
             name: "",
             password: "",
             show: PropTypes.object.viewLoginForm,
+            currentUser: null
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onNameChange = this.onNameChange.bind(this);
@@ -28,33 +30,30 @@ export default class Login extends React.Component {
         this.setState({password: event.target.value});
     }
 
-
     async handleSubmit(event) {
         event.preventDefault();
 
-        this.user = await Calls.loginUser({
+        let user = await Calls.registerUser({
             name: this.state.name,
             password: this.state.password
         });
+
         this.setState({
             name: "",
             password: "",
+            currentUser: user
         });
         window.location.reload();
+        console.log(this.state.currentUser);
     }
 
     render() {
         return (
-            <div>
-                <Form onSubmit={this.handleSubmit}>
+            <Form onSubmit={this.handleSubmit}>
                     <Input placeholder = "login"  type="text" onChange = {this.onNameChange}/>
                     <Input placeholder = "password" type="password" onChange = {this.onPasswordChange}/>
-                    <Button type="submit">Submit</Button>
-                </Form>
-
-            </div>
-
-
-    );
+                <Button type="submit">Submit</Button>
+            </Form>
+        );
     }
 }

@@ -14,8 +14,9 @@ let Calls = {
       body: body,
       headers: {
         "Content-Type": "application/json; charset=utf-8",
-        "Accept": "application/json"
+        "Accept": "application/json",
       },
+        credentials: 'include'
     });
     let resp = await response.json();
     return resp;
@@ -47,7 +48,19 @@ let Calls = {
   async updateShoppingItem(dtoIn) {
     let commandUri = this.getUri("check");
     return await Calls.call("put", commandUri, dtoIn);
-  }
+  },
+
+  async loginUser(dtoIn, request) {
+      let commandUri = this.getUri("loginn");
+      return await Calls.call("post", commandUri, dtoIn, request);
+
+  },
+
+    async registerUser(dtoIn) {
+        let commandUri = this.getUri("register");
+        return await Calls.call("post", commandUri, dtoIn);
+
+    }
 };
 
 export default Calls;

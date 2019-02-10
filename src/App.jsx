@@ -5,6 +5,7 @@ import TodoList from "./todo-list/TodoList";
 import Panel from 'muicss/lib/react/panel';
 import Button from 'muicss/lib/react/button';
 import Login from "./auth/Login";
+import Register from "./auth/Register";
 
 
 class App extends Component {
@@ -17,6 +18,7 @@ class App extends Component {
         };
 
         this.onLoginClicked = this.onLoginClicked.bind(this);
+        this.onRegisterClicked = this.onRegisterClicked.bind(this);
 
     }
 
@@ -28,6 +30,14 @@ class App extends Component {
         this.loginForm = <Login show = {this.viewLoginForm}/>;
     }
 
+    onRegisterClicked() {
+        console.log("clickReg");
+        this.setState({
+            viewLoginForm: true,
+        });
+        this.loginForm = <Register show = {this.viewLoginForm}/>;
+    }
+
     render() {
     return (
         <div className="App">
@@ -37,6 +47,7 @@ class App extends Component {
               <div className="mui--text-display3">Shopping List</div>
 
               <Button onClick={this.onLoginClicked}>Login</Button>
+              <Button onClick={this.onRegisterClicked}>Register</Button>
 
               <div className={"wrapperLoginForm"}>
                   {(this.state.viewLoginForm) ? this.loginForm : ''}
