@@ -7,6 +7,10 @@ import Button from 'muicss/lib/react/button';
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import Calls from "./calls";
+import ShoppingList from "./todo-list/ShoppingList";
+import Container from "muicss/lib/react/container";
+import TodoItem from "./todo-list/TodoItem";
+import Divider from "muicss/lib/react/divider";
 
 
 class App extends Component {
@@ -16,11 +20,19 @@ class App extends Component {
         this.state = {
             viewLoginForm: false,
             loginForm: null,
+            lists: [],
+            expand: false
         };
 
         this.onLoginClicked = this.onLoginClicked.bind(this);
         this.onRegisterClicked = this.onRegisterClicked.bind(this);
         this.onLogoutClicked = this.onLogoutClicked.bind(this);
+
+    }
+
+    async componentDidMount() {
+        let result = await Calls.getAllLsits();
+        this.setState({ lists: result, loadingState: "DONE" });
 
     }
 
@@ -46,7 +58,23 @@ class App extends Component {
     }
 
     render() {
+        let results = this.state.lists.map((result, index) => (
+            <div>
+                <Container fluid={true}>
+                    <ShoppingList
+                        key={result.id}
+                        list={result}
+                        onRemove={() => {this.removeItem(result, index)}}
+                        onUpdate={newItem => {this.updateItem(result, index, newItem);}}>
+                    </ShoppingList>
+                    <Divider/>
+                </Container>
+            </div>
+
+        ));
     return (
+
+
         <div className="App">
             <link href="//cdn.muicss.com/mui-0.9.41/css/mui.min.css" rel="stylesheet" type="text/css" media="screen" />
 
@@ -63,8 +91,8 @@ class App extends Component {
 
           </Panel>
             <calls/>
+            {results}
 
-          <TodoList />
       </div>
     );
   }

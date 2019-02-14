@@ -6,6 +6,7 @@ import Button from 'muicss/lib/react/button';
 import Divider from 'muicss/lib/react/divider';
 import Container from 'muicss/lib/react/container';
 import Calls from '../calls';
+import PropTypes from "prop-types";
 
 export default class TodoList extends React.Component {
     constructor(props) {
@@ -14,18 +15,22 @@ export default class TodoList extends React.Component {
             items: [],
             value: '',
             count: 1,
-            loadingState: "INIT"
+            loadingState: "INIT",
+            expand: false,
+            list: PropTypes.object.isRequired,
         };
 
         this.addItem = this.addItem.bind(this);
         this.onChange = this.onChange.bind(this);
         this.onCountChange = this.onCountChange.bind(this);
+        this.onListSaveClick = this.onListSaveClick.bind(this);
     }
 
     async componentDidMount() {
         this.setState({ loadingState: "LOADING" });
         try {
-            let result = await Calls.getShoppingList();
+            let result = await Calls.getShoppingList(this.props.list);
+            console.log("co je v result " + result )
             this.setState({ items: result, loadingState: "DONE" });
         } catch (error) {
             this.setState({ error:error, loadingState: "ERROR" });
@@ -56,6 +61,10 @@ export default class TodoList extends React.Component {
         this.setState({
             value: ''
         });
+    }
+
+    async onListSaveClick() {
+        await Calls.saveShoppingList(this.state.items);
     }
 
     async updateItem(item, index, newItem) {
@@ -91,6 +100,7 @@ export default class TodoList extends React.Component {
         return (
             <div >
                 <link href="//cdn.muicss.com/mui-0.9.41/css/mui.min.css" rel="stylesheet" type="text/css" media="screen" />
+
                 <Form inline={true} onSubmit={this.addItem}>
                     <Input required={true} placeholder="new item" value={this.state.value} onChange={this.onChange} />
                     <Input required={true} type="number" placeholder="count" value={this.state.count} onChange={this.onCountChange} />
@@ -98,6 +108,9 @@ export default class TodoList extends React.Component {
                 </Form>
                 <div ></div>
                 {items}
+                {console.log("jsem v itemech")}
+                <div ><Button className="style" onClick={this.onListSaveClick}>save shopping list</Button></div>
+
             </div>
         );
     }

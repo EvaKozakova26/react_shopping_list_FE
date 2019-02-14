@@ -29,15 +29,26 @@ let Calls = {
   },
 
   async getShoppingList(dtoIn) {
-    let commandUri = this.getUri("items");
+    let commandUri = this.getUri("getItems");
     console.log(dtoIn);
-    return await Calls.call("get", commandUri, dtoIn);
+    return await Calls.call("post", commandUri, dtoIn);
   },
 
+    async getAllLsits(dtoIn) {
+        let commandUri = this.getUri("getLists");
+        console.log(dtoIn);
+        return await Calls.call("get", commandUri, dtoIn);
+    },
+
   async deleteShoppingItem(dtoIn) {
-    let commandUri = this.getUri("delete");
-    return await Calls.call("delete", commandUri, dtoIn);
-  },
+        let commandUri = this.getUri("delete");
+        return await Calls.call("delete", commandUri, dtoIn);
+    },
+
+    async saveShoppingList(itemList) {
+        let commandUri = this.getUri("saveList");
+        return await Calls.call("post", commandUri, itemList);
+    },
 
   async createShoppingItem(dtoIn) {
     let commandUri = this.getUri("new");
