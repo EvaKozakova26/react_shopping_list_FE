@@ -57,6 +57,13 @@ class App extends Component {
        window.location.reload();
     }
 
+    async removeShopList(item, index) {
+        let reducedLists = this.state.lists;
+        await Calls.deleteShoppingList({ id: item.id });
+        reducedLists.splice(index, 1);
+        this.setState({ lists: reducedLists });
+    }
+
     render() {
         let results = this.state.lists.map((result, index) => (
             <div>
@@ -64,7 +71,7 @@ class App extends Component {
                     <ShoppingList
                         key={result.id}
                         list={result}
-                        onRemove={() => {this.removeItem(result, index)}}
+                        onRemove={() => {this.removeShopList(result, index)}}
                         onUpdate={newItem => {this.updateItem(result, index, newItem);}}>
                     </ShoppingList>
                     <Divider/>

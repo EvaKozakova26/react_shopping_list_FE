@@ -45,6 +45,11 @@ let Calls = {
         return await Calls.call("delete", commandUri, dtoIn);
     },
 
+    async deleteShoppingList(dtoIn) {
+        let commandUri = this.getUri("deleteList");
+        return await Calls.call("delete", commandUri, dtoIn);
+    },
+
     async saveShoppingList(itemList) {
         let commandUri = this.getUri("saveList");
         return await Calls.call("post", commandUri, itemList);
