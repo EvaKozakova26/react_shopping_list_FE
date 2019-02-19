@@ -67,11 +67,14 @@ class App extends Component {
         let results = this.state.lists.map((result, index) => (
             <div>
                 <Container fluid={true}>
-                    <ShoppingList
-                        key={result.id}
-                        list={result}
-                        onRemove={() => {this.removeShopList(result, index)}}>
-                    </ShoppingList>
+                    {(result.id === 0) ? '' :
+                        <ShoppingList
+                            key={result.id}
+                            list={result}
+                            onRemove={() => {this.removeShopList(result, index)}}>
+                        </ShoppingList>
+                    }
+
                 </Container>
             </div>
 
