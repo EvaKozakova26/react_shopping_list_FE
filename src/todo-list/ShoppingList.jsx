@@ -11,7 +11,6 @@ export default class ShoppingList extends React.Component {
             isFinished: false,
             list: PropTypes.object.isRequired,
             onRemove: PropTypes.func,
-            onUpdate: PropTypes.func,
             expand: false
 
         };
@@ -58,7 +57,7 @@ export default class ShoppingList extends React.Component {
                 <link href="//cdn.muicss.com/mui-0.9.41/css/mui.min.css" rel="stylesheet" type="text/css" media="screen" />
                 <div onClick={this.expandList}>{this.props.list.id}</div>
                 {console.log("jsem tu")}
-                <Button onClick={this.removeItem}>Remove Item</Button>
+                <button class="mui-btn mui-btn--flat mui-btn--danger" onClick={this.removeItem}>Remove Item</button>
                 {(this.state.expand) ? <TodoList list={this.props.list}/> : ""}
             </div>
         );

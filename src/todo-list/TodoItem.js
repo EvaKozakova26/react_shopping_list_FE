@@ -1,6 +1,7 @@
 import * as React from "react";
 import Button from 'muicss/lib/react/button';
 import PropTypes from "prop-types";
+import Calls from "../calls";
 
 export default class TodoItem extends React.Component {
     constructor(props) {
@@ -15,6 +16,11 @@ export default class TodoItem extends React.Component {
         this.removeItem = this.removeItem.bind(this);
     }
 
+    async componentDidMount() {
+        this.setState({ isFinished: this.props.item.state});
+        console.log(this.state.isFinished)
+    }
+
     removeItem() {
         if (this.props.onRemove instanceof Function) {
             this.props.onRemove();
@@ -24,10 +30,10 @@ export default class TodoItem extends React.Component {
     checkItem = (event) => {
         if(typeof this.props.onUpdate === "function" ) {
             let item = {...this.props.item};
-            if(item.state === "FINISHED"){
-                item.state = "NEW";
+            if(item.state === true){
+                item.state = false;
             }else {
-                item.state = "FINISHED";
+                item.state = true;
             }
             this.props.onUpdate(item);
         }
@@ -45,7 +51,7 @@ export default class TodoItem extends React.Component {
             <div>
                 <link href="//cdn.muicss.com/mui-0.9.41/css/mui.min.css" rel="stylesheet" type="text/css" media="screen" />
                 {this.props.item.name}{" " + this.props.item.count + "x"}
-                <Button onClick={this.removeItem}>Remove Item</Button>
+                <button class="mui-btn mui-btn--flat mui-btn--danger" onClick={this.removeItem}>Remove Item</button>
                 <input
                     name="isFinished"
                     type="checkbox"

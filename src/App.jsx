@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import './style.css';
-import TodoList from "./todo-list/TodoList";
 import Panel from 'muicss/lib/react/panel';
 import Button from 'muicss/lib/react/button';
 import Login from "./auth/Login";
@@ -9,7 +8,7 @@ import Register from "./auth/Register";
 import Calls from "./calls";
 import ShoppingList from "./todo-list/ShoppingList";
 import Container from "muicss/lib/react/container";
-import TodoItem from "./todo-list/TodoItem";
+import NewItemList from "./todo-list/NewItemList";
 import Divider from "muicss/lib/react/divider";
 
 
@@ -71,16 +70,13 @@ class App extends Component {
                     <ShoppingList
                         key={result.id}
                         list={result}
-                        onRemove={() => {this.removeShopList(result, index)}}
-                        onUpdate={newItem => {this.updateItem(result, index, newItem);}}>
+                        onRemove={() => {this.removeShopList(result, index)}}>
                     </ShoppingList>
-                    <Divider/>
                 </Container>
             </div>
 
         ));
     return (
-
 
         <div className="App">
             <link href="//cdn.muicss.com/mui-0.9.41/css/mui.min.css" rel="stylesheet" type="text/css" media="screen" />
@@ -95,11 +91,11 @@ class App extends Component {
               <div className={"wrapperLoginForm"}>
                   {(this.state.viewLoginForm) ? this.loginForm : ''}
               </div>
-
           </Panel>
             <calls/>
+            <NewItemList/>
+            <Divider/>
             {results}
-
       </div>
     );
   }

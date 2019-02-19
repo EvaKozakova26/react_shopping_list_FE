@@ -66,6 +66,12 @@ let Calls = {
     return await Calls.call("put", commandUri, dtoIn);
   },
 
+
+    async updateShoppingList(dtoIn) {
+        let commandUri = this.getUri("updateList");
+        return await Calls.call("post", commandUri, dtoIn);
+    },
+
   async loginUser(dtoIn, request) {
       let commandUri = this.getUri("loginn");
       return await Calls.call("post", commandUri, dtoIn, request);
