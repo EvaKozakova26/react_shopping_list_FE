@@ -52,7 +52,6 @@ export default class TodoList extends React.Component {
             name: this.state.value,
             state: false,
             count: this.state.count,
-            createdAt: new Date().toUTCString()
         });
         items.push(serverItem);
         this.setState({ items: items });

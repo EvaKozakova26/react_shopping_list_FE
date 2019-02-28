@@ -61,6 +61,7 @@ class App extends Component {
         await Calls.deleteShoppingList({ id: item.id });
         reducedLists.splice(index, 1);
         this.setState({ lists: reducedLists });
+        window.location.reload()
     }
 
     render() {

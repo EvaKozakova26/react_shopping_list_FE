@@ -49,7 +49,6 @@ export default class NewItemList extends React.Component {
             name: this.state.value,
             state: false,
             count: this.state.count,
-            createdAt: new Date().toUTCString()
         });
         items.push(serverItem);
         this.setState({ items: items });
@@ -61,7 +60,8 @@ export default class NewItemList extends React.Component {
     }
 
     async onListSaveClick() {
-        await Calls.saveShoppingList(this.state.items);
+        let lisst = await Calls.saveShoppingList(this.state.items);
+        console.log("returned list " + lisst)
     }
 
     async updateItem(item, index, newItem) {

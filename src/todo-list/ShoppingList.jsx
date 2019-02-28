@@ -52,14 +52,12 @@ export default class ShoppingList extends React.Component {
     };
 
     render() {
-        let cts = this.props.list.createdAt,
-            cdate = (new Date(cts)).toLocaleString('cz-CZ', { timeZone: 'UTC' });
         return (
             <div>
                 <link href="//cdn.muicss.com/mui-0.9.41/css/mui.min.css" rel="stylesheet" type="text/css" media="screen" />
-                <div onClick={this.expandList}>{cdate}</div>
+                <div className="mui--text-title" onClick={this.expandList}>{"Shopping list " + this.props.list.id}</div>
                 {console.log("jsem tu")}
-                <button class="mui-btn mui-btn--flat mui-btn--danger" onClick={this.removeItem}>Remove Item</button>
+                <button class="mui-btn mui-btn--flat mui-btn--danger" onClick={this.removeItem}>Remove List</button>
                 {(this.state.expand) ? <TodoList list={this.props.list}/> : ""}
             </div>
         );
