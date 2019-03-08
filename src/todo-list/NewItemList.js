@@ -62,6 +62,7 @@ export default class NewItemList extends React.Component {
     async onListSaveClick() {
         let lisst = await Calls.saveShoppingList(this.state.items);
         console.log("returned list " + lisst)
+        window.location.reload()
     }
 
     async updateItem(item, index, newItem) {
