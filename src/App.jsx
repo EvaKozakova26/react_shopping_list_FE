@@ -6,9 +6,9 @@ import Button from 'muicss/lib/react/button';
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import Calls from "./calls";
-import ShoppingList from "./todo-list/ShoppingList";
+import ShoppingList from "./shop-list/ShoppingList";
 import Container from "muicss/lib/react/container";
-import NewItemList from "./todo-list/NewItemList";
+import NewItemList from "./shop-list/NewItemList";
 import Divider from "muicss/lib/react/divider";
 
 

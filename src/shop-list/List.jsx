@@ -1,13 +1,14 @@
 import * as React from "react";
-import TodoItem from "./TodoItem";
+import ListItem from "./ListItem";
 import Form from 'muicss/lib/react/form';
 import Input from 'muicss/lib/react/input';
 import Button from 'muicss/lib/react/button';
 import Divider from 'muicss/lib/react/divider';
 import Container from 'muicss/lib/react/container';
 import Calls from '../calls';
+import PropTypes from "prop-types";
 
-export default class NewItemList extends React.Component {
+export default class List extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -15,6 +16,8 @@ export default class NewItemList extends React.Component {
             value: '',
             count: 1,
             loadingState: "INIT",
+            expand: false,
+            list: PropTypes.object.isRequired,
         };
 
         this.addItem = this.addItem.bind(this);
@@ -24,14 +27,14 @@ export default class NewItemList extends React.Component {
     }
 
     async componentDidMount() {
-      /*  this.setState({ loadingState: "LOADING" });
+        this.setState({ loadingState: "LOADING" });
         try {
-            let result = await Calls.getShoppingList();
+            let result = await Calls.getShoppingList(this.props.list);
             console.log("co je v result " + result )
             this.setState({ items: result, loadingState: "DONE" });
         } catch (error) {
             this.setState({ error:error, loadingState: "ERROR" });
-        }*/
+        }
     }
 
     async removeItem(item, index) {
@@ -60,9 +63,12 @@ export default class NewItemList extends React.Component {
     }
 
     async onListSaveClick() {
-        let lisst = await Calls.saveShoppingList(this.state.items);
-        console.log("returned list " + lisst)
-        window.location.reload()
+        await Calls.updateShoppingList(
+            {
+                    shoppingList: this.props.list,
+                    items: this.state.items
+                }
+            )
     }
 
     async updateItem(item, index, newItem) {
@@ -84,13 +90,12 @@ export default class NewItemList extends React.Component {
         let items = this.state.items.map((item, index) => (
             <div>
                 <Container fluid={true}>
-                    <TodoItem
-                        key={item.id}
-                        item={item}
-                        onRemove={() => {this.removeItem(item, index)}}
-                        onUpdate={newItem => {this.updateItem(item, index, newItem);}}>
-                    </TodoItem>
-                    <Divider/>
+                <ListItem
+                    key={item.id}
+                    item={item}
+                    onRemove={() => {this.removeItem(item, index)}}
+                    onUpdate={newItem => {this.updateItem(item, index, newItem);}}>
+                </ListItem>
                 </Container>
             </div>
 
@@ -106,7 +111,7 @@ export default class NewItemList extends React.Component {
                 </Form>
                 <div ></div>
                 {items}
-                <div ><button class="mui-btn mui-btn--primary" onClick={this.onListSaveClick}>save shopping list</button></div>
+                <div ><button class="mui-btn mui-btn--primary" onClick={this.onListSaveClick}>update shopping list</button></div>
 
             </div>
         );

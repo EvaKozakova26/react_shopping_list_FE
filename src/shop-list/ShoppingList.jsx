@@ -1,24 +1,21 @@
 import * as React from "react";
 import Button from 'muicss/lib/react/button';
 import PropTypes from "prop-types";
-import Calls from "../calls";
+import List from "./List";
+import ListItem from "./ListItem";
 
-export default class TodoItem extends React.Component {
+export default class ShoppingList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             isFinished: false,
-            item: PropTypes.object.isRequired,
+            list: PropTypes.object.isRequired,
             onRemove: PropTypes.func,
-            onUpdate: PropTypes.func
+            expand: false
 
         };
         this.removeItem = this.removeItem.bind(this);
-    }
-
-    async componentDidMount() {
-        this.setState({ isFinished: this.props.item.state});
-        console.log(this.state.isFinished)
+        this.expandList = this.expandList.bind(this);
     }
 
     removeItem() {
@@ -27,13 +24,21 @@ export default class TodoItem extends React.Component {
         }
     }
 
+    expandList() {
+         this.setState({
+             expand: true
+         })
+
+
+    }
+
     checkItem = (event) => {
         if(typeof this.props.onUpdate === "function" ) {
             let item = {...this.props.item};
-            if(item.state === true){
-                item.state = false;
+            if(item.state === "FINISHED"){
+                item.state = "NEW";
             }else {
-                item.state = true;
+                item.state = "FINISHED";
             }
             this.props.onUpdate(item);
         }
@@ -50,13 +55,10 @@ export default class TodoItem extends React.Component {
         return (
             <div>
                 <link href="//cdn.muicss.com/mui-0.9.41/css/mui.min.css" rel="stylesheet" type="text/css" media="screen" />
-                {this.props.item.name}{" " + this.props.item.count + "x"}
-                <button class="mui-btn mui-btn--flat mui-btn--danger" onClick={this.removeItem}>Remove Item</button>
-                <input
-                    name="isFinished"
-                    type="checkbox"
-                    checked={this.state.isFinished}
-                    onChange={this.checkItem} />
+                <div className="mui--text-title" onClick={this.expandList}>{"Shopping list " + this.props.list.id}</div>
+                {console.log("jsem tu")}
+                <button class="mui-btn mui-btn--flat mui-btn--danger" onClick={this.removeItem}>Remove List</button>
+                {(this.state.expand) ? <List list={this.props.list}/> : ""}
             </div>
         );
     }
